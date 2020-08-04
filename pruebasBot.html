@@ -1,0 +1,122 @@
+<!--<!DOCTYPE html>
+<html>
+
+<head>
+   <link rel="stylesheet" href="css/style.css">
+</head>
+
+
+<body>
+   <div class="caja">      
+      <div id="webchat" role="main"></div>
+      <div id="Headerwebchat">chat</div>
+   </div>
+</body>
+
+<script src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+
+<script>
+   const styleOptions = {
+      //botAvatarInitials: '',
+      userAvatarInitials: 'c',
+      rootHeight: '555px',
+      rootWidth: '333px',
+      avatarSize: 30,
+      botAvatarBackgroundColor: '#FFFF',
+      botAvatarImage: './img/electrohuila_logo.png',
+      bubbleBackground: 'rgba(1, 43, 255, .1)',
+      bubbleFromUserBackground: 'rgba(0, 255, 0, .1)',
+      suggestedActionBackground: 'White',
+      hideUploadButton: true,
+
+
+   };
+
+   const store = window.WebChat.createStore({}, ({
+      dispatch
+   }) => next => action => {
+
+      if (action.type === 'DIRECT_LINE/CONNECT_FULFILLED') {
+
+         dispatch({
+            type: 'WEB_CHAT/SEND_EVENT',
+            payload: {
+               name: 'webchat/join',
+               value: {
+                  prueba: 'hola oy mateo',
+
+               }
+            }
+         });
+      }
+
+      return next(action);
+   });
+
+
+   console.log('dlkjasfñkjhsdlkdsjhlkduh');
+   console.log(store);
+
+
+   window.WebChat.renderWebChat({
+         directLine: window.WebChat.createDirectLine({
+            secret: 'NJsLpMDHVwc.OYzsPr9-gkTylXmlIIXIpW4gr4HWGqzZqF-WJDbWRVs'
+         }),
+         styleOptions,
+         store,
+
+      },
+      document.getElementById('webchat')
+   );
+</script>
+
+</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Web Chat: Send welcome event</title>
+
+    <script src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+    <style>
+      html, body { height: 100% }
+      body { margin: 0 }
+
+      #webchat {
+        height: 500px;
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="webchat"></div>
+    <script>
+      (async function () {
+
+        const res = await fetch('https://webchat-mockbot.azurewebsites.net/directline/token', { method: 'POST' });
+        const { token } = await res.json();
+
+       const store = window.WebChat.createStore({}, ({ dispatch }) => next => action => {
+         if (action.type === 'DIRECT_LINE/CONNECT_FULFILLED') {
+           dispatch({
+             type: 'WEB_CHAT/SEND_EVENT',
+             payload: {
+               name: 'webchat/join',
+               value: { language: window.navigator.language }
+             }
+           });
+         }
+         return next(action);
+       });
+
+        window.WebChat.renderWebChat({
+          directLine: window.WebChat.createDirectLine({ secret: 'NJsLpMDHVwc.OYzsPr9-gkTylXmlIIXIpW4gr4HWGqzZqF-WJDbWRVs' }),
+        store
+        }, document.getElementById('webchat'));
+
+        document.querySelector('#webchat > *').focus();
+      })().catch(err => console.error(err));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
+        integrity="sha384-OHBBOqpYHNsIqQy8hL1U+8OXf9hH6QRxi0+EODezv82DfnZoV7qoHAZDwMwEJvSw" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="css/animated.css">
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-select.css" />
+    <link rel="stylesheet" href="css/themes/odometer-theme-default.css">
+    <link rel="stylesheet" href="css/monitoreo.css">
+
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
+
+    <title>Monitoreo Difusión Interrupciones No Programadas</title>
+</head>
+
+<body>
+    <div class="cargaLoader">
+        <div class="loader"></div>
+    </div>
+
+    <div class="">
+        <nav class="w3-pale-green darken-2">
+            <div class="nav-wrapper">
+                <img id="imagenEH-Nav" src="img/electrohuila_logo.png" alt="">
+                <a style="font-size: 1.7rem !important;
+                text-shadow: 1px 1px 1px grey;
+                color: #1f9aea;" class="brand-logo">Monitoreo Chatbot
+                    ElectroHuila</a>
+
+                <a href="#" data-target="barraLateral" class="sidenav-trigger">
+                    <i class="material-icons">menu</i>
+                </a>
+                <ul class="right hide-on-med-and-down" style="line-height: normal;">
+                    <li>
+                        <a id="btn-abrir-popupDownloads" class="tooltipped " data-position="left"
+                            data-tooltip="Descargar">
+                            <i class="fas fa-download fa-2x color-icons"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a style="background-color: #a2bcff38" class="tooltipped" data-position="left"
+                            data-tooltip="Monitoreo Comparación Fuentes" href="monitoreoTipificacion.html">
+                            <i class="fas fa-chart-bar fa-2x color-icons"></i>
+                            <!-- <i>
+                                <img id="imagenBot" src="img/llamadasCrecimiento.png" style="margin-top: -5px;" alt=""
+                                    width="40px">
+                            </i> -->
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="tooltipped" data-position="left" data-tooltip="Monitoreo Chatbot"
+                            href="monitoreoChatbot.html">
+                            <i class="fas fa-robot fa-2x color-icons"></i>
+                            <!-- <i>
+                                <img id="imagenBot" src="img/mailx.png" style="margin-top: -5px;" alt="" width="40px">
+                            </i> -->
+                        </a>
+                    </li>
+                    <li>
+                        <a id="logoutButton" class="tooltipped" data-position="left" data-tooltip="Cerrar Sesión">
+                            <i class="fas fa-sign-out-alt fa-2x color-icons"></i>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+        <ul class="sidenav" id="barraLateral">
+            <li>
+                <a id="logoutLateral">
+                    <i class="fas fa-sign-out-alt"></i>Cerrar Sesión</a>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="contenido">
+
+        <div class="tabPanel-widget">
+            <label class="labelTab1" for="tab-1" tabindex="0"></label>
+            <input id="tab-1" type="radio" name="tabs" checked="true" aria-hidden="true">
+            <h2>Eventos Registrados</h2>
+            <div id="labelTab1" style="display: block">
+                <div class="contenedorTipificacion">
+
+                    <div class="tipificacion">
+                        <div style="left: 1vw;" class="ribbon">
+                            <div class="glow">&nbsp;</div>
+                            <span class="ribbon3">Comparación con fuente de Contact Center por mes</span>
+                        </div>
+                        <div style="margin-top: 6vw;" class="filtro">
+                            <div id="reportrange3" class="dropdown tooltipped" data-position="left"
+                                data-tooltip="Selecciona Año">
+                                <i class="far fa-calendar-alt"></i>&nbsp;
+                                <br>
+                                <input name="obtenerAno" type="text" class="yearpicker form-control" value="" />
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="graficosTipificacon">
+
+                            <div class="card-panel comparacionTipificacion">
+                                <h5>Cruce Contact Center por mes</h5>
+                                <br>
+                                <div id="tipificacionConsultasAno"
+                                    class="tipificacionConsultasAno mid-graphComparacionTipificacion">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="tipificacion">
+                        <div style="left: 1vw;" class="ribbon">
+                            <div class="glow">&nbsp;</div>
+                            <span class="ribbon3">Comparación con fuente de Contact Center por día</span>
+                        </div>
+                        <br>
+                        <div style="margin-top: 6vw;" class="filtro">
+                            <div id="reportrange3" class="dropdown tooltipped" data-position="left"
+                                data-tooltip="Selecciona Mes">
+                                <i class="far fa-calendar-alt"></i>&nbsp;
+                                <br>
+                                <input id="filtroMes" class="filtroMes" type="text">
+
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="graficosTipificacon">
+
+                            <div class="card-panel comparacionTipificacion">
+                                <h5>Cruce Contact Center por día</h5>
+                                <br>
+                                <div id="tipificacionConsultasDia"
+                                    class="tipificacionConsultasDia mid-graphComparacionTipificacion">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tipificacion">
+                        <div style="left: 1vw;" class="ribbon">
+                            <div class="glow">&nbsp;</div>
+                            <span class="ribbon3">Comparación con fuente de Contact Center por Semana</span>
+                        </div>
+                        <br>
+
+                        <div style="margin-top: 5vw;" class="filtro">
+                            <div id="reportrange" class="tooltipped" data-position="left"
+                                data-tooltip="Selecciona Fecha">
+                                <i class="far fa-calendar-alt"></i>&nbsp;
+                                <span id="capturaFecha">Selecciona Fecha</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="graficosTipificacon">
+
+                            <div class="card-panel comparacionTipificacion">
+                                <h5>Cruce Contact Center por Semana</h5>
+                                <br>
+                                <div id="tipificacionConsultasSemana"
+                                    class="tipificacionConsultasSemana mid-graphComparacionTipificacion">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tipificacion">
+
+                        <div style="left: 1vw;" class="ribbon">
+                            <div class="glow">&nbsp;</div>
+                            <span class="ribbon3">Comparación con fuente de Contact Center por hora</span>
+                        </div>
+                        <br>
+                        <div style="margin-top: 5vw;" class="filtro">
+                            <div id="reportrange2" class="tooltipped" data-position="left"
+                                data-tooltip="Selecciona Fecha">
+                                <i class="far fa-calendar-alt"></i>&nbsp;
+                                <span id="capturaFecha">Selecciona Fecha</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="graficosTipificacon">
+
+                            <div class="card-panel comparacionTipificacion">
+                                <h5>Cruce Contact Center por hora</h5>
+                                <br>
+                                <div id="tipificacionConsultasHora"
+                                    class="tipificacionConsultasHora mid-graphComparacionTipificacion">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="overlayDownloads" id="overlayDownloads" style="z-index: 99999 !important">
+            <div class="popupDownloads" id="popupDownloads">
+                <a href="#" id="btn-cerrar-popupDownloads" class="btn-cerrar-popupDownloads">
+                    <i class="fas fa-times"></i></a>
+                <h3>Descarga documentos de interés</h3>
+                <div class="cabecera_popup">
+                    <div class="selectMonth">
+                        <div style="margin-right: 3%;">
+                            <label for="month_start">Mes</label>
+                            <select id="month_start" name="month_start" style="background: #ffffff85">
+                                <option value="01">Enero</option>
+                                <option value="02">Febrero</option>
+                                <option value="03">Marzo</option>
+                                <option value="04">Abril</option>
+                                <option value="05">Mayo</option>
+                                <option value="06">Junio</option>
+                                <option value="07">Julio</option>
+                                <option value="08">Agosto</option>
+                                <option value="09">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="year_start">Año</label>
+                            <select id="year_start" name="year_start" style="background: #ffffff85">
+                                <option>2019</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="wrapper">
+                        <div class="tabs">
+                            <div class="selector"></div>
+                            <a href="#" class="active"><i class="fa fa-headset"></i>Chatbot</a>
+                            <a href="#"><i class="fas fa-sms"></i>Tendencias</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="downloadsDiv">
+                    <div class="cargaLoaderPopup">
+                        <div
+                            style="width: 100%; height: 100%;display: flex;align-items: center;justify-content: center;">
+                            <div class="loaderPopup"></div>
+                        </div>
+                    </div>
+                    <div class="alerta">
+
+                        <div class="alert info animated zoomInLeft">
+                            <span class="closebtn">&times;</span>
+                            <strong>Upps!</strong> No existe información para esta fecha
+                        </div>
+                    </div>
+
+                    <div id="Chatbot" style="display: block; width: auto;margin: 1%; height: 100%">
+                        <div class="Lucy">
+
+                            <div class="card-panel downloads">
+                                <h4>Identificador de chat de Facebook</h4>
+                                <a id="niu_senderid_link" class="buttonDownload">Descargar archivo .xlsx</a>
+                                <a id="niu_senderid_download"
+                                    href="https://ciadbots.herokuapp.com/archivosDescargar/NumerosCuenta_IdChat.xlsx"
+                                    download="NumerosCuenta_IdChat.xlsx" style="display: none">Descargar archivo
+                                    .xlsx</a>
+                            </div>
+                            <div class="card-panel downloads">
+                                <h4>Clientes con calificaciones negativas</h4>
+                                <a id="cal_negativas" class="buttonDownload">Descargar archivo .xlsx</a>
+                                <a id="cal_negativas_download"
+                                    href="https://ciadbots.herokuapp.com/archivosDescargar/calificacionesNegativas.xlsx"
+                                    download="calificacionesNegativas.xlsx" style="display: none">Descargar archivo
+                                    .xlsx</a>
+                            </div>
+                            <div class="card-panel downloads">
+                                <h4>Usuarios que más consultan</h4>
+                                <a id="consultas_usuarios" class="buttonDownload">Descargar archivo .xlsx</a>
+                                <a id="consultas_usuarios_download"
+                                    href="https://ciadbots.herokuapp.com/archivosDescargar/consultas_usuarios.xlsx"
+                                    download="consultas_usuarios.xlsx" style="display: none">Descargar archivo .xlsx</a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="Difusion" style="display: none; width: auto; margin: 1%; height: 100%">
+                        <div class="Difusion">
+
+                            <div class="card-panel downloads">
+                                <h4>Flujo conversacional de los usuarios frecuentes</h4>
+                                <a id="acuse_recibo_difusion" class="buttonDownload">Descargar archivo .xlsx</a>
+                                <a id="acuse_recibo_difusion_download"
+                                    href="https://ciadbots.herokuapp.com/archivosDescargar/telefonosNiu_SistemaDifusion.xlsx"
+                                    download="telefonosNiu_SistemaDifusion.xlsx" style="display: none">Descargar archivo
+                                    .xlsx</a>
+
+                            </div>
+                            <div class="card-panel downloads">
+                                <h4>Conversaciones perdidas</h4>
+                                <a id="switches_inexistentes" class="buttonDownload">Descargar archivo .xlsx</a>
+                                <a id="switches_inexistentes_download"
+                                    href="https://ciadbots.herokuapp.com/archivosDescargar/SwitchesInexistentes.xlsx"
+                                    download="SwitchesInexistentes.xlsx" style="display: none">Descargar archivo
+                                    .xlsx</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <footer class="w3-pale-green darken-2">
+            <img id="imagenUM-Footer" src="img/logo-um.png" alt="">
+            <img id="imagenDL-Footer" src="img/DATALAB Transparente.png" alt="">
+            <img id="imagenEH-Footer" src="img/electrohuila_logo.png" alt="">
+        </footer>
+    </div>
+</body>
+
+<script src="js/tipificacion/monitoreoTipificacion.js" type="module"></script>
+<script src="js/library/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="js/library/yearpicker.js" async></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<script src="css/jQuery-Plugin-For-jQuery-UI-Month-Year-Picker-mtz-monthpicker/jquery.mtz.monthpicker.js"></script>
+
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/sankey.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-apexcharts"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://unpkg.com/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script src="js/library/sorttable.js"></script>
+
+<script src="js/library/odometer.min.js"></script>
+
+</html>

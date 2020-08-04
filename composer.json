@@ -1,0 +1,14 @@
+{
+    "name": "sala/acceso_chatbot-chec",
+    "description": "chatbot para atencion al cliente CHEC",
+    "authors": [
+        {
+            "name": "daniel cardona",
+            "email": "prjchec.dcardona@umanizales.edu.co"
+        }
+    ],
+    "require": {
+        "ext-mongodb": "*"
+    }
+}
+
